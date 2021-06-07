@@ -17,14 +17,8 @@
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  <!-- <script type="text/babel" src="app.jsx"></script> -->
-  <script type="text/babel">
-    // fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
-    //   .then(response => response.json())
-    //   .then(json => json.forEach(id => {
-    //     fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(response => response.json()).then(json => console.log(json))
-    //   }));
 
+  <script type="text/babel">
     function Item(props) {
       const item = props.item
       return (
@@ -48,7 +42,7 @@
         </h6>)
     }
 
-    class Example2 extends React.Component {
+    class App extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
@@ -72,7 +66,6 @@
               })
           }));
       }
-      // componentDidUpdate() { document.title = `Вы нажали ${this.state.count} раз`; }
 
       render() {
         return (
@@ -83,37 +76,12 @@
       }
     }
 
-    function Example() {
-      // Объявление новой переменной состояния «count»
-      const [items, setItems] = React.useState([]);
-      const [count, setCount] = React.useState(0);
-
-      React.useEffect(() => {
-        fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
-          .then(response => response.json())
-          .then(json => json.slice(0, 10).forEach(id => {
-            fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(response => response.json())
-              .then(json => {
-                setCount(items.push(json))
-                setItems(items)
-              })
-          }));
-      }, [count])
-      // console.log(items)
-      return (
-        <div>
-          {items.map(item => <Item item={item} />)}
-        </div>
-      );
-    }
-
     ReactDOM.render(
-      <Example2 />,
+      <App />,
       document.getElementById('app')
     );
 
   </script>
-  <!-- <script src="index.js"></script> -->
 </head>
 
 <body>
