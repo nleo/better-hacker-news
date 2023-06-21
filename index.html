@@ -3,22 +3,53 @@
 
 <head>
   <title>Better hacker News</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
-  <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
+  <style>
+    .badge.gt100 {
+      background-color: rgb(21, 124, 7);
+    }
+    .badge.gt200 {
+      background-color: rgb(25, 161, 7);
+    }
+    .badge.gt400 {
+      background-color: rgb(31, 201, 9);
+    }
+  </style>
+
   <script type="text/babel">
+
+    function Score(props){
+      let style = '';
+      let score = Number(props.score);
+
+      if(score > 400){
+        style = 'gt400'
+      }else if (score > 200){
+        style = 'gt200'
+      }else if (score > 100){
+        style = 'gt100'
+      }else{
+        style = 'bg-secondary'
+      }
+
+      return <span class={"badge "+ style}>
+        <i class="bi-hand-thumbs-up" />
+        &nbsp;{props.score}
+      </span>
+    }
+
+
     function Item(props) {
       const item = props.item
       return (
@@ -26,10 +57,7 @@
           <a href={item.url} class='link-dark text-decoration-none'>
             {props.item.title}
             &nbsp;
-            <span class="badge bg-secondary">
-              <i class="bi-hand-thumbs-up" />
-              &nbsp;{item.score}
-            </span>
+            <Score score={item.score} />
             &nbsp;
             <a href={`https://news.ycombinator.com/item?id=${item.id}`}>
               <span class="badge bg-secondary">
@@ -76,10 +104,9 @@
       }
     }
 
-    ReactDOM.render(
-      <App />,
-      document.getElementById('app')
-    );
+    const container = document.getElementById('app');
+    const root = ReactDOM.createRoot(container);
+    root.render(<App tab="home" />);
 
   </script>
 </head>
